@@ -1,0 +1,25 @@
+{
+  "name": "cbn-time-ago",
+  "version": "1.0.0",
+  "main": "cbn-table.html",
+  "ignore": [
+    "**/.*",
+    "resources/*.zip",
+    "test",
+    "node_modules",
+    "bower_components",
+    "Gruntfile.js",
+    "package.json",
+    "src"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.5.0"
+    
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0",
+    "web-component-tester": "*",
+    "test-fixture": "PolymerElements/test-fixture#^1.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.2.5"
+  }
+}

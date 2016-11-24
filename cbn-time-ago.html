@@ -1,0 +1,84 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`cbn-time-ago` 
+
+    <cbn-time-ago></cbn-time-ago>
+
+### Validation
+
+### Styling
+
+@demo demo/index.html
+@class cbn-time-ago
+-->
+
+<dom-module id="cbn-time-ago">
+	<style>
+		:host {
+			display: block;
+		}
+	</style>
+	<template>
+		<span>[[_value]]</span>
+	</template>
+</dom-module>
+
+<script>
+	(function () {
+		Polymer({
+
+			is: 'cbn-time-ago',
+			behaviors: [],
+			properties: {
+				date:{
+					type:String
+				},
+				refreshInterval:{
+					type:Number,
+					value:1000
+				},
+				_value:{
+					type:String,
+					value:""
+				},
+				_interval:{
+					type:Number,
+					value:0
+				}
+			},
+			observers: [
+				"_startTimer(date,refreshInterval)"
+			],
+			ready: function () {
+				
+			},
+			_startTimer:function(){
+				clearInterval(this._interval);
+				setInterval(this.updateValue.bind(this), this.refreshInterval);
+			},
+			updateValue:function(){
+				this._value = this.formatTimeDiference(new Date().getTime() - parseInt(this.date));
+			},
+			formatTimeDiference: function (timeDif) {
+				if (timeDif < 1000)
+					return "0s";
+
+				var days = parseInt(timeDif / (24 * 60 * 60 * 1000));
+				timeDif = timeDif % (24 * 60 * 60 * 1000);
+				var h = parseInt(timeDif / (60 * 60 * 1000));
+				timeDif = timeDif % (60 * 60 * 1000);
+				var min = parseInt(timeDif / (60 * 1000));
+				timeDif = timeDif % (60 * 1000);
+				var sec = parseInt(timeDif / 1000);
+
+				var str = "";
+				str += ((days == 0) ? "" : (days == 1) ? "1 zi" : (days + " zile"));
+				str += ((h == 0) ? "" : (((str == "") ? "" : ", ") + h + " h"));
+				str += ((min == 0) ? "" : (((str == "") ? "" : ", ") + min + " min"));
+				str += ((sec == 0) ? "" : (((str == "") ? "" : ", ") + sec + " s"));
+				return str;
+			}
+		})
+	})();
+</script>
